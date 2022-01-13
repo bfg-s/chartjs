@@ -13,7 +13,7 @@ class Builder
     /**
      * @var array
      */
-    static protected $chart = [];
+    static protected $charts = [];
 
     /**
      * @var string
@@ -59,7 +59,7 @@ class Builder
      */
     public function name($name)
     {
-        $old = static::$charts[$this->name];
+        $old = static::$charts[$this->name] ?? [];
         $this->name = $name;
         static::$charts[$name] = array_merge($this->defaults, $old);
         return $this;

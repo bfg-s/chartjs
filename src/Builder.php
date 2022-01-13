@@ -4,7 +4,7 @@
  * This file is inspired by Builder from Laravel ChartJS - Brian Faust
  */
 
-namespace Fx3costa\LaravelChartJs;
+namespace Bfg\ChartJs;
 
 use Illuminate\Support\Arr;
 
@@ -148,12 +148,12 @@ class Builder
     {
         $chart = $this->charts[$this->name];
 
-        return view('chart-template::chart-template')
+        return view('chart-js::template')
                 ->with('datasets', $chart['datasets'])
                 ->with('element', $this->name)
                 ->with('labels', $chart['labels'])
-                ->with('options', isset($chart['options']) ? $chart['options'] : '')
-                ->with('optionsRaw', isset($chart['optionsRaw']) ? $chart['optionsRaw'] : '')
+                ->with('options', $chart['options'] ?? '')
+                ->with('optionsRaw', $chart['optionsRaw'] ?? '')
                 ->with('type', $chart['type'])
                 ->with('size', $chart['size']);
     }

@@ -10,8 +10,9 @@ composer require fx3costa/laravelchartjs
 ```
 
 And add the Service Provider in your file config/app.php:
+
 ```php
-Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class
+Fx3costa\LaravelChartJs\Providers\ChartJsServiceProvider::class
 ```
 
 Finally, for now, you must install and add to your layouts / templates the Chartjs library that can be easily

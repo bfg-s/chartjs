@@ -149,6 +149,7 @@ class Builder
         $chart = $this->charts[$this->name];
 
         return view('chart-js::template')
+                ->with('isNotAjax', !request()->ajax() && !request()->pjax())
                 ->with('datasets', $chart['datasets'])
                 ->with('element', $this->name)
                 ->with('labels', $chart['labels'])

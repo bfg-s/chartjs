@@ -13,7 +13,7 @@ class Builder
     /**
      * @var array
      */
-    private $charts = [];
+    static protected $chart = [];
 
     /**
      * @var string
@@ -46,6 +46,12 @@ class Builder
         'radar'
     ];
 
+    public function __construct()
+    {
+        $num = count(static::$charts);
+        $this->name("chart$num");
+    }
+
     /**
      * @param $name
      *
@@ -53,8 +59,9 @@ class Builder
      */
     public function name($name)
     {
-        $this->name          = $name;
-        $this->charts[$name] = $this->defaults;
+        $old = static::$charts[$this->name];
+        $this->name = $name;
+        static::$charts[$name] = array_merge($this->defaults, $old);
         return $this;
     }
 
@@ -86,6 +93,21 @@ class Builder
     public function datasets(array $datasets)
     {
         return $this->set('datasets', $datasets);
+    }
+
+    /**
+     * @param array $datasets
+     *
+     * @return Builder
+     */
+    public function simpleDatasets(string $label, array $dataset)
+    {
+        static::$charts[$this->name]['datasets'][] = [
+            "label" => $label,
+            'data' => $dataset,
+        ];
+
+        return $this;
     }
 
     /**
@@ -146,7 +168,7 @@ class Builder
      */
     public function render()
     {
-        $chart = $this->charts[$this->name];
+        $chart = static::$charts[$this->name];
 
         return view('chart-js::template')
                 ->with('isNotAjax', !request()->ajax() && !request()->pjax())
@@ -166,7 +188,7 @@ class Builder
      */
     private function get($key)
     {
-        return Arr::get($this->charts[$this->name], $key);
+        return Arr::get(static::$charts[$this->name], $key);
     }
 
     /**
@@ -177,7 +199,7 @@ class Builder
      */
     private function set($key, $value)
     {
-        Arr::set($this->charts[$this->name], $key, $value);
+        Arr::set(static::$charts[$this->name], $key, $value);
 
         return $this;
     }

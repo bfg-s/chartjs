@@ -98,7 +98,7 @@ $chart->optionsRaw([
 // ExampleController.php
 
 $chartjs = app()->chartjs
-        ->name('lineChartTest')
+        ->name('lineChartTest') // Not required
         ->type('line')
         ->size(['width' => 400, 'height' => 200])
         ->labels(['January', 'February', 'March', 'April', 'May', 'June', 'July'])
@@ -128,6 +128,15 @@ $chartjs = app()->chartjs
 
 return view('example', compact('chartjs'));
 
+
+ // Or
+ 
+ $chartjs = app()->chartjs
+        ->type('line')
+        ->size(['width' => 400, 'height' => 200])
+        ->labels(['January', 'February', 'March', 'April', 'May', 'June', 'July'])
+        ->simpleDatasets('My First dataset', [65, 59, 80, 81, 56, 55, 40])
+        ->simpleDatasets('My Second dataset', [12, 33, 44, 44, 55, 23, 40]);
 
  // example.blade.php
 
